@@ -94,54 +94,42 @@ class PixelEditionApp(App):
 
     # ---------------- SAFE SCREEN SWITCHING ----------------
     def show_home(self, instance=None):
-        if not hasattr(self, "home_screen"):
-            return
-        self.content_area.clear_widgets()
-        self.content_area.add_widget(self.home_screen)
+    self.content_area.clear_widgets()
+    self.content_area.add_widget(self.home_screen)
 
-    def show_library(self, instance=None):
-        if not hasattr(self, "library_screen"):
-            return
-        self.content_area.clear_widgets()
-        self.content_area.add_widget(self.library_screen)
 
-    def show_downloader(self, instance=None):
-        if not hasattr(self, "downloader_screen"):
-            return
-        self.content_area.clear_widgets()
-        self.content_area.add_widget(self.downloader_screen)
+def show_library(self, instance=None):
+    self.content_area.clear_widgets()
+    self.content_area.add_widget(self.library_screen)
 
-    def show_settings(self, instance=None):
-        if not hasattr(self, "settings_screen"):
-            return
-        self.content_area.clear_widgets()
-        self.content_area.add_widget(self.settings_screen)
 
+def show_downloader(self, instance=None):
+    self.content_area.clear_widgets()
+    self.content_area.add_widget(self.downloader_screen)
+
+
+def show_settings(self, instance=None):
+    self.content_area.clear_widgets()
+    self.content_area.add_widget(self.settings_screen) 
     # ---------------- NAV MENU ----------------
-    def show_nav_menu(self, instance):
-        content = BoxLayout(orientation='vertical', spacing=10, padding=10)
+def show_nav_menu(self, instance):
+    content = BoxLayout(orientation='vertical', spacing=10, padding=10)
 
-        buttons = [
-            ("Home", self.show_home),
-            ("Library", self.show_library),
-            ("Download Cores", self.show_downloader),
-            ("Settings", self.show_settings),
-        ]
+    buttons = [
+        ("Home", self.show_home),
+        ("Library", self.show_library),
+        ("Download Cores", self.show_downloader),
+        ("Settings", self.show_settings),
+    ]
 
-        for text, callback in buttons:
-            btn = Button(text=text, size_hint_y=None, height=50)
-            btn.bind(on_press=lambda x, cb=callback: self._close_popup_and_run(cb))
-            content.add_widget(btn)
+    for text, callback in buttons:
+        btn = Button(text=text, size_hint_y=None, height=50)
+        btn.bind(on_press=lambda x, cb=callback: self._close_popup_and_run(cb))
+        content.add_widget(btn)
 
-        self.popup = Popup(title="Navigation", content=content,
-                           size_hint=(0.8, 0.6))
-        self.popup.open()
-
-    def _close_popup_and_run(self, callback):
-        if hasattr(self, "popup"):
-            self.popup.dismiss()
-        callback()
-
+    self.popup = Popup(title="Navigation", content=content,
+                       size_hint=(0.8, 0.6))
+    self.popup.open()
     # ---------------- UI HELPERS ----------------
     def _update_rect(self, instance, value):
         self.header_rect.pos = instance.pos
