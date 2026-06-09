@@ -24,6 +24,7 @@ try:
     from core.database import init_db, get_db_session
     from core.tensor_service import TensorOptimizationService
     from core.performance_profiles import PerformanceProfileManager
+    from core.core_manager import CoreManager
     from ui.theme_engine import MaterialYouTheme
     from ui.screens.home import HomeScreen
     from ui.screens.library import LibraryScreen
@@ -58,6 +59,9 @@ class PixelEditionApp(App):
             
             # Initialize performance profiles
             self.profile_manager = PerformanceProfileManager(self.db_session)
+            
+            # Initialize core manager
+            self.core_manager = CoreManager(self.db_session)
             
             # Apply Material You theme
             self.theme = MaterialYouTheme()
@@ -104,8 +108,8 @@ class PixelEditionApp(App):
         self.content_area = BoxLayout(orientation='vertical')
         self.main_layout.add_widget(self.content_area)
         
-        # Show home screen by default
-        self.show_home()
+        # Show downloader screen by default (for first-time setup)
+        self.show_downloader()
     
     def show_home(self, instance=None):
         """Show home screen"""
